@@ -8,5 +8,8 @@
   },
   "keywords": [],
   "author": "Developer Lucas Lima",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.0.4"
+  }
 }
