@@ -3,7 +3,7 @@ import fastify from 'fastify'
 const app = fastify()
 
 app.get('/hello', () => {
-  return 'Hello'
+  return 'Hello world!'
 })
 
 app.listen({
