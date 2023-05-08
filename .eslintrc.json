@@ -1,8 +1,5 @@
 {
   "extends": [
     "@rocketseat/eslint-config/node"
-  ],
-  "rules": {
-    "no-trailing-spaces": ["error", { "skipBlankLines": true }]
-  }  
+  ]
 }
