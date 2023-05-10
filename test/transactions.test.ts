@@ -1,22 +1,24 @@
-import { test, beforeAll, afterAll } from 'vitest'
+import { it, beforeAll, afterAll, describe } from 'vitest'
 import supertest from 'supertest'
 import { app } from '../src/app'
 
-beforeAll(async () => {
-  await app.ready()
-})
+describe('Transactions routes', () => {
+  beforeAll(async () => {
+    await app.ready()
+  })
 
-afterAll(async () => {
-  await app.close()
-})
+  afterAll(async () => {
+    await app.close()
+  })
 
-test('user can create a new transation', async () => {
-  await supertest(app.server)
-    .post('/transactions')
-    .send({
-      title: 'New transaction',
-      amount: 100,
-      type: 'credit',
-    })
-    .expect(201)
+  it('should be able to crate a new transaction', async () => {
+    await supertest(app.server)
+      .post('/transactions')
+      .send({
+        title: 'New transaction',
+        amount: 100,
+        type: 'credit',
+      })
+      .expect(201)
+  })
 })
