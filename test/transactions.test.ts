@@ -1,4 +1,5 @@
-import { it, beforeAll, afterAll, describe, expect } from 'vitest'
+import { it, beforeEach, beforeAll, afterAll, describe, expect } from 'vitest'
+import { execSync } from 'node:child_process'
 import supertest from 'supertest'
 import { app } from '../src/app'
 
@@ -11,11 +12,16 @@ describe('Transactions routes', () => {
     await app.close()
   })
 
+  beforeEach(() => {
+    execSync('npm run knex migrate:rollback --all')
+    execSync('npm run knex migrate:latest')
+  })
+
   it('should be able to crate a new transaction', async () => {
     await supertest(app.server)
       .post('/transactions')
       .send({
-        title: 'New transaction',
+        title: 'Test transaction',
         amount: 5000,
         type: 'credit',
       })
@@ -26,7 +32,7 @@ describe('Transactions routes', () => {
     const createTransactionResponse = await supertest(app.server)
       .post('/transactions')
       .send({
-        title: 'New transaction',
+        title: 'Test transaction',
         amount: 5000,
         type: 'credit',
       })
@@ -40,7 +46,7 @@ describe('Transactions routes', () => {
 
     expect(listTransactionsResponse.body.transactions).toEqual([
       expect.objectContaining({
-        title: 'New transaction',
+        title: 'Test transaction',
         amount: 5000,
       }),
     ])
